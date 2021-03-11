@@ -1,10 +1,45 @@
 import React from 'react';
 
+import css from './Home.module.css';
+
+import Post from './Post.js';
+
+const post = {
+    user:{
+		id:"judy",
+		photo:"/assets/user1.png",
+	},
+	post:{
+		id:"post-1",
+        userId:"judy",
+        photo:"/assets/post1.png",
+        desc:"#zootopia #excited",
+		datetime: "2020-02-09T22:45:28Z"
+	},
+	likes: {
+		self: true,
+		count:1
+	},
+	comments:[
+		{
+        userId:"nick",
+        text:"Welcome to Zootopia!"
+        },
+        {
+        userId:"judy",
+        text:"Thanks!😁Looking forward to meeting you!"
+        }
+	]
+};
+
 function Home() {
     return (
-        <div>
-            Home       
-        </div>
+        <Post 
+            user={post.user} 
+            likes = {post.likes} 
+            post = {post.post} 
+            comments={post.comments}  
+        />
     );
 }
 

@@ -1,0 +1,78 @@
+/* Header */
+.postHeader {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+
+    box-sizing: border-box;
+    width:100%;
+    height: 70px;
+    padding:0px 18px;
+}
+
+.userPhoto {
+    width: 45px;
+    border-radius: 100px;
+}
+
+.userId {
+    font-size: large;
+    font-weight: bold;
+    padding: 10px;
+}
+
+/* Post Content */
+.postContent {
+    display: block;
+    position: relative;
+    box-sizing: border-box;
+
+}
+
+.postPhoto {
+    width: 100%;
+    height: 400px;
+    object-fit: cover;
+}
+
+.indent {
+    padding:0px 18px;
+}
+
+.likeCommentIcons {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+
+    height: 40px;
+}
+
+.iconItem {
+    padding: 0px 10px 0px 0px;
+}
+
+.likeCount {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+
+    font-weight: 700;
+
+    margin-bottom: 10px;
+}
+
+.commentRow {
+    display: block;
+    margin-bottom: 2px;
+}
+
+.commentor {
+    font-weight: 700;
+}
+
+.time {
+    display: block;
+    position: relative;
+    top: 10px;
+    color: rgb(169, 173, 175);
+}
