@@ -6,18 +6,16 @@ import timespan from 'utils/timespan.js';
 import css from './Post.module.css';
 
 class Post extends React.PureComponent{
-    constructor(props){
-        super(props);
-    }
+    // constructor(props){
+    //     super(props);
+    // }
 
     render(){
         return (
             <React.Fragment>
                 <header className={css.postHeader}>
-                    <img className={css.userPhoto} src={publicUrl(this.props.user.photo)} alt="User"/>
-                    <p className={css.userId}>
-                        {this.props.user.id}
-                    </p>
+                    <Avatar user={this.props.user} />
+                    <Name user={this.props.user} />
                 </header>
                 <article className={css.postContent}>
                     <img className={css.postPhoto} src={publicUrl(this.props.post.photo)} alt="Post"/>
@@ -33,19 +31,13 @@ class Post extends React.PureComponent{
                         </div>
                         <div className={css.likeCount}>{this.props.likes.count} likes</div>
                         
-                        <div className={css.commentRow}>
-                            <span className={css.commentor}>{this.props.post.userId} </span>
-                            <span>{this.props.post.desc}</span>
-                        </div>
+                        <Comment user={this.props.post.userId} comments={this.props.post.desc} />
 
                         <div>
                             {
                                 this.props.comments.map((c, index) => {
                                     return (
-                                        <div key={index} className={css.commentRow}>
-                                            <span className={css.commentor}>{c.userId} </span>
-                                            <span>{c.text}</span>
-                                        </div>
+                                        <Comment user={c.userId} comments={c.text} key={index}/>
                                     )
                                 })
                             }
@@ -59,6 +51,32 @@ class Post extends React.PureComponent{
             </React.Fragment>
         );
     }
+}
+
+function Avatar(props) {
+    return (
+        <img className={css.userPhoto} 
+            src={publicUrl(props.user.photo)} 
+            alt={props.user.id}
+        />
+    );
+}
+
+function Name(props) {
+    return (
+        <p className={css.userId}>
+            {props.user.id}
+        </p>
+    );
+}
+
+function Comment(props) {
+    return (
+        <div className={css.commentRow}>
+            <span className={css.commentor}>{props.user} </span>
+            <span>{props.comments}</span>
+        </div>
+    );
 }
 
 
