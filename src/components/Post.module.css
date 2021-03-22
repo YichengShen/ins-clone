@@ -1,3 +1,8 @@
+.postContainer {
+    display: absolute;
+    padding-bottom: 30px;
+}
+
 /* Header */
 .postHeader {
     display: flex;
@@ -10,15 +15,8 @@
     padding:0px 18px;
 }
 
-.userPhoto {
+.avatarContainer {
     width: 45px;
-    border-radius: 100px;
-}
-
-.userId {
-    font-size: large;
-    font-weight: bold;
-    padding: 10px;
 }
 
 /* Post Content */
@@ -75,4 +73,29 @@
     position: relative;
     top: 10px;
     color: rgb(169, 173, 175);
+}
+
+/* Submit comment */
+.addComment{
+    margin-top: 6px;
+    border-bottom: 1px solid #efefef;
+    padding: 10px 18px;
+    display: flex;
+}
+.addComment input{
+    background: none;
+    border: none;
+    height: 16px;
+    outline: none;
+    font:inherit;
+    padding: 0;
+    width: 100%;
+}
+.addComment ::placeholder { 
+    color: #999;
+}
+.addComment button{
+    color:#3897f0;
+    font-weight: 600;
+    font-size: 16px;
 }
