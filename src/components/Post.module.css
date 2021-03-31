@@ -99,3 +99,8 @@
     font-weight: 600;
     font-size: 16px;
 }
+
+.userNameLink, userNameLink:visited {
+    color: black;
+    text-decoration: none !important;
+}

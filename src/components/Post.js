@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import { Link } from 'react-router-dom';
 
 import publicUrl from 'utils/publicUrl';
 import timespan from 'utils/timespan.js';
@@ -18,7 +19,9 @@ function Post(props) {
                 <div className={css.avatarContainer}>
                     <Avatar photo={props.user.photo} />
                 </div>
-                <Name name={props.user.id} />
+                <Link to={'/profile/'+props.user.id} className={css.userNameLink}>
+                    <Name name={props.user.id} />
+                </Link>
             </header>
             <article className={css.postContent}>
                 <img className={css.postPhoto} src={publicUrl(props.post.photo)} alt="Post"/>
@@ -89,7 +92,9 @@ function Post(props) {
 function Comment(props) {
     return (
         <div className={css.commentRow}>
-            <span className={css.commentor}>{props.user} </span>
+            <Link to={'/profile/'+props.user} className={css.userNameLink}>
+                <span className={css.commentor}>{props.user} </span>
+            </Link>
             <span>{props.comments}</span>
         </div>
     );

@@ -1,4 +1,9 @@
 import React, { useState } from 'react';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route
+} from "react-router-dom";
 
 import Header from './Header.js';
 import Navbar from './Navbar.js';
@@ -14,17 +19,45 @@ import uniqueId from 'utils/uniqueId.js';
 import css from './App.module.css';
 
 function App() {
-  const [page, setPage] = useState('home');
   const [store, setStore] = useState(initialStore);
 
   return (
-    <div className={css.container}>
-      <Header/>
-      <main className={css.content}>
-        {renderMain(page)}
-      </main>
-      <Navbar onNavChange={setPage}/>
-    </div>
+    <Router basename={process.env.PUBLIC_URL}>
+      <div className={css.container}>
+        <Header/>
+        <main className={css.content}>
+        <Switch>
+          <Route path="/explore">
+            <Explore
+              store={store}/>
+          </Route>
+          <Route path="/newpost">
+            <NewPost
+              store={store}
+              onShare={addPost}/>
+          </Route>
+          <Route path="/activity">
+            <Activity
+              store={store}/>
+          </Route>
+          <Route path="/profile/:userId?">
+              <Profile 
+                store={store}
+                onFollow={addFollower} 
+                onUnfollow={removeFollower}/>
+          </Route>
+          <Route path="/:postId?">
+            <Home 
+              store={store}
+              onLike={addLike}
+              onUnlike={removeLike}
+              onComment={addComment}/>
+          </Route>
+        </Switch>
+        </main>
+        <Navbar/>
+      </div>
+    </Router>
   );
 
   function addLike(postId) {
@@ -73,35 +106,25 @@ function App() {
     // 2. Update the store 
     setStore({
       ...store,
-        posts:store.posts.concat(newPost)
+      posts:store.posts.concat(newPost)
     });
-    // 3. Call setPage to come back to the home page
-    setPage('home');
   }
 
-	function cancelPost(){
-		// 1. Call setPage to come back to the home page (we will use Router to improve this)
-    setPage('home');
-	}
-
-  function renderMain(page){
-    switch(page){
-    case "home": return <Home store={store} 
-                          onLike={addLike} 
-                          onUnlike={removeLike}
-                          onComment={addComment}
-                        />;
-    case "explore": return <Explore/>;
-    case "newpost": return <NewPost
-                              store={store}
-                              onShare={addPost}
-                              onCancel={cancelPost}
-                            />;
-    case "activity": return <Activity/>;
-    case "profile": return <Profile store={store} />;
-
-    default: return <Home/>;
-    }
+  function addFollower(userId, followerId){
+    const newFollower = {
+      userId: userId,
+      followerId: followerId
+    };
+    setStore({
+      ...store,
+      followers:store.followers.concat(newFollower)
+    });
+  }
+  function removeFollower(userId, followerId){
+    setStore({
+      ...store,
+      followers: store.followers.filter(follower=>!(follower.userId===userId && follower.followerId===followerId))
+    });
   }
 
 }

@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link, useParams } from 'react-router-dom';
 
 import Avatar from './common/Avatar.js';
 import Name from './common/Name.js';
@@ -7,28 +8,41 @@ import PostThumbnail from './common/PostThumbnail.js';
 import css from './Profile.module.css';
 
 function Profile(props) {
-    const currentUserId = props.store.currentUserId;
-    const currentUser = props.store.users.find(user=>user.id===currentUserId);
+    let {userId} = useParams();
 
-    const posts = getPosts(props.store.posts, currentUserId);
-    const followers = getFollowers(props.store.followers, currentUserId)
-    const following = getFollowing(props.store.followers, currentUserId)
+    // Check if the userId parameter is defined
+    const displayedUserId = (typeof userId !== 'undefined') ? userId : props.store.currentUserId;
+
+    const displayedUser = props.store.users.find(user=>user.id===displayedUserId);
+
+    const posts = getPosts(props.store.posts, displayedUserId);
+    const followers = getFollowers(props.store.followers, displayedUserId);
+    const following = getFollowing(props.store.followers, displayedUserId);
+
+    const followed = props.store.followers.some(follower => follower.userId===displayedUserId && 
+                                                            follower.followerId===props.store.currentUserId)
 
     return (
         <div className={css.profileContainer}>
             <header className={css.profileHeader}>
                 <div className={css.avatarContainer}>
-                    <Avatar photo={currentUser.photo} />
+                    <Avatar photo={displayedUser.photo} />
                 </div>
-                <Name name={currentUser.id}/>
+                <Name name={displayedUser.id}/>
+                {displayedUserId !== props.store.currentUserId &&
+                    (followed ? 
+                    <button className={css.unfollowBtn} onClick={handleUnfollow}>Unfollow</button> :
+                    <button className={css.followBtn} onClick={handleFollow}>Follow</button>)
+                }
+                
             </header>
 
             <section className={css.personalInfo}>
                 <div className={css.fullName}>
-                    {currentUser.name}
+                    {displayedUser.name}
                 </div>
                 <div className={css.bio}>
-                    {currentUser.bio}
+                    {displayedUser.bio}
                 </div>
             </section>
 
@@ -41,9 +55,12 @@ function Profile(props) {
             <div className={css.posts}>
 
                 {posts.map(p=>{
-                    return (<PostThumbnail key={p.id} 
-                                post={p} 
-                            />)
+                    return (<Link key={p.id} to={'/'+p.id}>
+                                <PostThumbnail key={p.id} 
+                                    post={p} 
+                                />
+                            </Link>
+                    )                            
                 })}
                 
             </div>
@@ -51,6 +68,14 @@ function Profile(props) {
               
         </div>
     );
+
+    function handleFollow() {
+        props.onFollow(displayedUserId, props.store.currentUserId);
+    }
+
+    function handleUnfollow() {
+        props.onUnfollow(displayedUserId, props.store.currentUserId);
+    }
 }
 
 function getPosts(posts, userId) {

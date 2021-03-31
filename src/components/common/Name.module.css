@@ -1,4 +1,6 @@
 .userId {
+    color: black;
+    text-decoration: none !important;
     font-size: large;
     font-weight: bold;
     padding: 10px;

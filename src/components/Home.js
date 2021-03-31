@@ -1,4 +1,5 @@
 import React from 'react';
+import { useParams } from 'react-router-dom';
 
 import css from './Home.module.css';
 
@@ -7,9 +8,12 @@ import Post from './Post.js';
 function Home(props) {
     const {store} = props;
 
+    let {postId} = useParams(); // the variable name has to match the parameter name
+
     return (
         <div className={css.container}>
-            {store.posts.sort((a,b)=>new Date(b.datetime) - new Date(a.datetime))
+            {store.posts.filter(post => (typeof postId !== 'undefined') ? (post.id === postId) : true)
+            .sort((a,b)=>new Date(b.datetime) - new Date(a.datetime))
             .map(post=>
                 <Post
                     key={post.id}
