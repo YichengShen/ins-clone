@@ -1,49 +1,63 @@
-import React from 'react';
-import { useParams } from 'react-router-dom';
+import React, { useContext } from "react";
+import { useParams } from "react-router-dom";
 
-import css from './Home.module.css';
+import { StoreContext } from "contexts/StoreContext";
 
-import Post from './Post.js';
+import css from "./Home.module.css";
 
-function Home(props) {
-    const {store} = props;
+import Post from "./Post.js";
 
-    let {postId} = useParams(); // the variable name has to match the parameter name
+function Home() {
+  let {
+    posts,
+    users,
+    comments,
+    likes,
+    currentUserId,
+    addComment,
+    addLike,
+    removeLike,
+  } = useContext(StoreContext);
 
-    return (
-        <div className={css.container}>
-            {store.posts.filter(post => (typeof postId !== 'undefined') ? (post.id === postId) : true)
-            .sort((a,b)=>new Date(b.datetime) - new Date(a.datetime))
-            .map(post=>
-                <Post
-                    key={post.id}
-                    user={findUser(post, store)}
-                    post={post}
-                    comments={findComments(post, store)}
-                    likes={findLikes(post, store)}
-                    onLike={props.onLike}
-                    onUnlike={props.onUnlike}
-                    onComment={props.onComment}
-                />)}
-        </div>
-    );
+  let { postId } = useParams(); // the variable name has to match the parameter name
+
+  return (
+    <div className={css.container}>
+      {posts
+        .filter((post) =>
+          typeof postId !== "undefined" ? post.id === postId : true
+        )
+        .sort((a, b) => new Date(b.datetime) - new Date(a.datetime))
+        .map((post) => (
+          <Post
+            key={post.id}
+            user={findUser(post, users)}
+            post={post}
+            comments={findComments(post, comments)}
+            likes={findLikes(post, likes, currentUserId)}
+            onLike={addLike}
+            onUnlike={removeLike}
+            onComment={addComment}
+          />
+        ))}
+    </div>
+  );
 }
 
-function findUser(post, store){
-    return store.users.find(user=>user.id===post.userId);
+function findUser(post, users) {
+  return users.find((user) => user.id === post.userId);
 }
 
-function findComments(post, store){
-    return store.comments.filter(comment=>comment.postId===post.id);
+function findComments(post, comments) {
+  return comments.filter((comment) => comment.postId === post.id);
 }
 
-function findLikes(post, store){
-    let postLikes = store.likes.filter(like=>like.postId===post.id);
-    return {
-        self: postLikes.some(like=> like.userId===store.currentUserId),
-        count: postLikes.length
-    }
+function findLikes(post, likes, currentUserId) {
+  let postLikes = likes.filter((like) => like.postId === post.id);
+  return {
+    self: postLikes.some((like) => like.userId === currentUserId),
+    count: postLikes.length,
+  };
 }
-
 
 export default Home;
