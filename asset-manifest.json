@@ -1,22 +1,22 @@
 {
   "files": {
     "main.css": "/ins-clone/static/css/main.981b6d31.chunk.css",
-    "main.js": "/ins-clone/static/js/main.38dc4f85.chunk.js",
-    "main.js.map": "/ins-clone/static/js/main.38dc4f85.chunk.js.map",
+    "main.js": "/ins-clone/static/js/main.bb53206f.chunk.js",
+    "main.js.map": "/ins-clone/static/js/main.bb53206f.chunk.js.map",
     "runtime-main.js": "/ins-clone/static/js/runtime-main.96ac5d38.js",
     "runtime-main.js.map": "/ins-clone/static/js/runtime-main.96ac5d38.js.map",
-    "static/js/2.8f80c1e3.chunk.js": "/ins-clone/static/js/2.8f80c1e3.chunk.js",
-    "static/js/2.8f80c1e3.chunk.js.map": "/ins-clone/static/js/2.8f80c1e3.chunk.js.map",
+    "static/js/2.1c720309.chunk.js": "/ins-clone/static/js/2.1c720309.chunk.js",
+    "static/js/2.1c720309.chunk.js.map": "/ins-clone/static/js/2.1c720309.chunk.js.map",
     "static/js/3.66b192e6.chunk.js": "/ins-clone/static/js/3.66b192e6.chunk.js",
     "static/js/3.66b192e6.chunk.js.map": "/ins-clone/static/js/3.66b192e6.chunk.js.map",
     "index.html": "/ins-clone/index.html",
     "static/css/main.981b6d31.chunk.css.map": "/ins-clone/static/css/main.981b6d31.chunk.css.map",
-    "static/js/2.8f80c1e3.chunk.js.LICENSE.txt": "/ins-clone/static/js/2.8f80c1e3.chunk.js.LICENSE.txt"
+    "static/js/2.1c720309.chunk.js.LICENSE.txt": "/ins-clone/static/js/2.1c720309.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.96ac5d38.js",
-    "static/js/2.8f80c1e3.chunk.js",
+    "static/js/2.1c720309.chunk.js",
     "static/css/main.981b6d31.chunk.css",
-    "static/js/main.38dc4f85.chunk.js"
+    "static/js/main.bb53206f.chunk.js"
   ]
 }
